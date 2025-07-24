@@ -1,17 +1,6 @@
 package ru.stqa.geometry.figures;
 
-public class Triangle {
-
-    double side_a;
-    double side_b;
-    double side_c;
-
-    public Triangle(double side_a, double side_b, double side_c) {
-        this.side_a = side_a;
-        this.side_b = side_b;
-        this.side_c = side_c;
-    }
-
+public record Triangle (double side_a, double side_b, double side_c) {
 
    public static void printTriangleSquare(Triangle p) {
          var text = String.format("Площадь треугольника со сторонами %f см, %f см, %f см  равна %f кв.см", p.side_a, p.side_b, p.side_c, p.Square());
