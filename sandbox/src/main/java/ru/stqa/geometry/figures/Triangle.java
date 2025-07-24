@@ -1,22 +1,35 @@
 package ru.stqa.geometry.figures;
 
 public class Triangle {
-     public static void printTriangleSquare(double side_a, double side_b, double side_c) {
-         var text = String.format("Площадь треугольника со сторонами %f, %f, %f равна %f", side_a, side_b, side_c, TriangleSquare(side_a, side_b, side_c));
+
+    double side_a;
+    double side_b;
+    double side_c;
+
+    public Triangle(double side_a, double side_b, double side_c) {
+        this.side_a = side_a;
+        this.side_b = side_b;
+        this.side_c = side_c;
+    }
+
+
+   public static void printTriangleSquare(Triangle p) {
+         var text = String.format("Площадь треугольника со сторонами %f см, %f см, %f см  равна %f кв.см", p.side_a, p.side_b, p.side_c, p.Square());
          System.out.println(text);
     }
 
-       private static double TriangleSquare(double sideA, double sideB, double sideC) {
-           double p = TrianglePerimeter(sideA, sideB, sideC)/2;
-           return Math.round(Math.sqrt(p*(p-sideA)*(p-sideB)*(p-sideC)));
-       }
 
-     public static void printTrianglePerimeter(double side_a, double side_b, double side_c) {
-         String text = String.format("Периметр треугольника со сторонами %f, %f, %f равен %f", side_a, side_b, side_c, TrianglePerimeter(side_a, side_b, side_c));
+   public static void printTrianglePerimeter(Triangle s) {
+         String text = String.format("Периметр треугольника со сторонами %f см, %f см, %f см равен %f см", s.side_a, s.side_b, s.side_c, s.Perimeter());
          System.out.println(text);
    }
 
-        private static double TrianglePerimeter(double a, double b, double c) {
-            return a + b + c;
+   public double Perimeter() {
+        return this.side_a+this.side_b+this.side_c;
         }
+
+   public double Square() {
+        var p = Perimeter()/2;
+        return Math.sqrt(p*(p-this.side_a)*(p-this.side_b)*(p-this.side_c));
+    }
 }
