@@ -9,4 +9,5 @@ public class TrianglePerimeterTest {
         var result = new Triangle(2.0, 2.0, 2.0);
         Assertions.assertEquals(6.0, result.Perimeter());
     }
+
 }
