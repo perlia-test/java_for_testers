@@ -29,7 +29,16 @@ public Triangle {
                    && Double.compare(this.side_c, triangle.side_a) == 0)
                 ||   (Double.compare(this.side_a, triangle.side_c) == 0
                    && Double.compare(this.side_b, triangle.side_a) == 0
-                   && Double.compare(this.side_c, triangle.side_b) == 0);
+                   && Double.compare(this.side_c, triangle.side_b) == 0)
+                ||   (Double.compare(this.side_a, triangle.side_a) == 0
+                   && Double.compare(this.side_b, triangle.side_c) == 0
+                   && Double.compare(this.side_c, triangle.side_b) == 0)
+                ||   (Double.compare(this.side_a, triangle.side_b) == 0
+                   && Double.compare(this.side_b, triangle.side_a) == 0
+                   && Double.compare(this.side_c, triangle.side_c) == 0)
+                ||   (Double.compare(this.side_a, triangle.side_c) == 0
+                   && Double.compare(this.side_b, triangle.side_b) == 0
+                   && Double.compare(this.side_c, triangle.side_a) == 0);
     }
 
     @Override

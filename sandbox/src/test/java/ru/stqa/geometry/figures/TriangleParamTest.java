@@ -32,7 +32,7 @@ public class TriangleParamTest {
     void CheckTriangleInEquality() {
         var Trgl_1 = new Triangle(7.0, 6.0, 5.0);
         var Trgl_2 = new Triangle(6.0, 5.0, 5.0);
-        Assertions.assertNotEquals(Trgl_1,Trgl_2);
+        Assertions.assertFalse(Trgl_1.equals(Trgl_2));
 
     }
 
