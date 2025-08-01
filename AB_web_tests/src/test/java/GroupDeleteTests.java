@@ -2,6 +2,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
@@ -26,9 +27,31 @@ public class GroupDeleteTests {
 
     @Test
     public void CanDeleteGroup() {
-        driver.findElement(By.linkText("groups")).click();
+        if (!IsElementPresent(By.name("new"))) {
+            driver.findElement(By.linkText("groups")).click();
+        }
+        if (!IsElementPresent(By.name("selected[]"))) {
+            driver.findElement(By.name("new")).click();
+            driver.findElement(By.name("group_name")).click();
+            driver.findElement(By.name("group_name")).sendKeys("group name 1");
+            driver.findElement(By.name("group_header")).click();
+            driver.findElement(By.name("group_header")).sendKeys("group header 1");
+            driver.findElement(By.name("group_footer")).click();
+            driver.findElement(By.name("group_footer")).sendKeys("group footer 1");
+            driver.findElement(By.name("submit")).click();
+            driver.findElement(By.linkText("group page")).click();
+        }
         driver.findElement(By.name("selected[]")).click();
         driver.findElement(By.xpath("(//input[@name=\'delete\'])[2]")).click();
         driver.findElement(By.linkText("group page")).click();
+    }
+
+    private boolean IsElementPresent(By Locator) {
+        try {
+            driver.findElement(Locator);
+            return true;
+        } catch (NoSuchElementException exception) {
+            return false;
+        }
     }
 }
