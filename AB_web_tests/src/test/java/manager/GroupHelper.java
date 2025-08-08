@@ -45,7 +45,7 @@ public class GroupHelper extends HelperBase {
     }
 
 
-
+// Вспомогательные методы
 
 
     private void submitGroupCreation() {

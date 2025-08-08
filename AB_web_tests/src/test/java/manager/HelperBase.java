@@ -1,6 +1,9 @@
 package manager;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.Select;
+
+import java.io.File;
 
 public class HelperBase {
     protected final ApplicationManager manager;
@@ -17,5 +20,15 @@ public class HelperBase {
         click(locator);
         manager.driver.findElement(locator).clear();
         manager.driver.findElement(locator).sendKeys(text);
+    }
+
+    protected void select(By locator, String value) {
+        if (value != null) {
+            new Select(manager.driver.findElement(locator)).selectByVisibleText(value);
+        }
+    }
+
+    protected void attach(By locator, String file_path) {
+        manager.driver.findElement(locator).sendKeys(new File(file_path).getAbsolutePath());
     }
 }
