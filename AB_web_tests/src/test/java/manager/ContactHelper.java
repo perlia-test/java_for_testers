@@ -49,6 +49,7 @@ public class ContactHelper extends HelperBase {
         select(By.name("aday"), fieldName.anniversaryDay());
         select(By.name("amonth"), fieldName.anniversaryMonth());
         type(By.name("ayear"), fieldName.anniversaryYear());
+        select(By.name("new_group"),fieldName.group());
     }
 
     public void DeleteContact() {
@@ -78,5 +79,10 @@ public class ContactHelper extends HelperBase {
 
     private void deleteSelectedContact() {
         click(By.xpath("//input[@value='Delete']"));
+    }
+
+    public int getCount() {
+        returnToHomePage();
+        return manager.driver.findElements(By.name("selected[]")).size();
     }
 }

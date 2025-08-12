@@ -1,6 +1,7 @@
 package tests;
 
 import model.ContactData;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class ContactCreationTests extends TestBase {
@@ -12,8 +13,9 @@ public class ContactCreationTests extends TestBase {
 
     @Test
     public void CanCreateContact() {
+        int contactCount = app.contacs().getCount();
         app.contacs().CreateContact(new ContactData()
-                .withFirstName("Ivan")
+                .withFirstName("Peter")
                 .withMiddleName("Ivanovich")
                 .withLastName("Ivanov")
                 .withNickname("Jhoan")
@@ -31,7 +33,9 @@ public class ContactCreationTests extends TestBase {
                 .withHomePage("www.example.com")
                 .withBirthday("12", "December", "2012")
                 .withAnniversary("1", "January", "2025")
-                .withGroup("any name"));
+                .withGroup("group name 1"));
+        int nextContactCount = app.contacs().getCount();
+        Assertions.assertEquals(contactCount+1,nextContactCount);
     }
 
     @Test
@@ -46,5 +50,4 @@ public class ContactCreationTests extends TestBase {
                 .withBirthday("12", "December", "2002")
                 .withGroup("any name"));
     }
-
 }

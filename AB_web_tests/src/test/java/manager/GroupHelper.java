@@ -5,38 +5,33 @@ import org.openqa.selenium.By;
 
 public class GroupHelper extends HelperBase {
 
-    public GroupHelper (ApplicationManager manager) {
+    public GroupHelper(ApplicationManager manager) {
         super(manager);
     }
 
-    public void OpenGroupsPage() {
+    public void openGroupsPage() {
         if (!manager.IsElementPresent(By.name("new"))) {
             click(By.linkText("groups"));
         }
     }
 
-    public boolean isGroupPresent() {
-        OpenGroupsPage();
-        return manager.IsElementPresent(By.name("selected[]"));
-    }
-
-    public void CreateGroup(GroupData fieldName) {
-        OpenGroupsPage();
+    public void createGroup(GroupData fieldName) {
+        openGroupsPage();
         initGroupCreation();
         fillGroupForm(fieldName);
         submitGroupCreation();
         returnToGroupsPage();
     }
 
-    public void DeleteGroup() {
-        OpenGroupsPage();
+    public void deleteGroup() {
+        openGroupsPage();
         selectGroup();
-        deleteSelectedGroup();
+        deleteSelectedGroups();
         returnToGroupsPage();
     }
 
     public void modifyGroup(GroupData modifiedGroup) {
-        OpenGroupsPage();
+        openGroupsPage();
         selectGroup();
         initGroupModifiocation();
         fillGroupForm(modifiedGroup);
@@ -47,38 +42,66 @@ public class GroupHelper extends HelperBase {
 
 // Вспомогательные методы
 
-
+    //Отправляем данные заполненной формы
     private void submitGroupCreation() {
         click(By.name("submit"));
     }
 
+    //Нажимаем на кнопку New
     private void initGroupCreation() {
         click(By.name("new"));
     }
 
-    private void deleteSelectedGroup() {
+    //Нажимаем на кнопку Delete
+    private void deleteSelectedGroups() {
         click(By.xpath("(//input[@name=\'delete\'])[2]"));
     }
 
+    //Переходим на страницу с группами
     private void returnToGroupsPage() {
         click(By.linkText("group page"));
     }
 
+    //Применить редактирование формы группы
     private void submitGroupModification() {
         click(By.name("update"));
     }
 
+    //Заполняем поля группы на форме
     private void fillGroupForm(GroupData fieldName) {
         type(By.name("group_name"), fieldName.name());
         type(By.name("group_header"), fieldName.header());
         type(By.name("group_footer"), fieldName.footer());
     }
 
+    //Нажимаем на кнопку Edit
     private void initGroupModifiocation() {
         click(By.name("edit"));
     }
 
+    //Выделяем группу
     private void selectGroup() {
         click(By.name("selected[]"));
+    }
+
+    //Считаем кол-во групп на странице
+    public int getCount() {
+        openGroupsPage();
+        return manager.driver.findElements(By.name("selected[]")).size();
+    }
+
+    //Удаляем все группы
+    public void deleteAllGroups() {
+        openGroupsPage();
+        selectAllGroups();
+        deleteSelectedGroups();
+    }
+
+    //Выделяем все группы
+    private void selectAllGroups() {
+        var checkboxes = manager.driver.findElements(By.name("selected[]"));
+        for (var checkbox : checkboxes) {
+            checkbox.click();
+        }
     }
 }
