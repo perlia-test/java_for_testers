@@ -9,7 +9,7 @@ public class ContacDeleteTests extends TestBase {
     @Test
         public void CanDeleteContact() {
             if (app.contacs().getCount() == 0) {
-                app.contacs().CreateContact(new ContactData()
+                app.contacs().createContact(new ContactData()
                         .withFirstName("Ivan")
                         .withMiddleName("Ivanovich")
                         .withLastName("Ivanov")
@@ -20,8 +20,25 @@ public class ContacDeleteTests extends TestBase {
                         .withGroup("any name"));
             }
             int contactCount = app.contacs().getCount();
-            app.contacs().DeleteContact();
+            app.contacs().deleteContact();
             int nextContactCount = app.contacs().getCount();
             Assertions.assertEquals(contactCount-1,nextContactCount);
+        }
+
+        @Test
+        void CanDeleteAllContacts() {
+            if (app.contacs().getCount() == 0) {
+                app.contacs().createContact(new ContactData()
+                        .withFirstName("Sidor")
+                        .withMiddleName("Sidorovich")
+                        .withLastName("Sidorov")
+                        .withAddress("St.Peterburg")
+                        .withMobilePhone("+79869994466")
+                        .withEmail("Sidorov@email.com")
+                        .withBirthday("12", "December", "2001")
+                        .withGroup("group name 1"));
+            }
+            app.contacs().deleteAllContacts();
+            Assertions.assertEquals(0,app.contacs().getCount());
         }
 }

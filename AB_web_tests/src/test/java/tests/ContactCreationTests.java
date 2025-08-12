@@ -8,13 +8,13 @@ public class ContactCreationTests extends TestBase {
 
     @Test
     public void CanCreateContactEmpty() {
-        app.contacs().CreateContact(new ContactData());
+        app.contacs().createContact(new ContactData());
     }
 
     @Test
     public void CanCreateContact() {
         int contactCount = app.contacs().getCount();
-        app.contacs().CreateContact(new ContactData()
+        app.contacs().createContact(new ContactData()
                 .withFirstName("Peter")
                 .withMiddleName("Ivanovich")
                 .withLastName("Ivanov")
@@ -40,7 +40,7 @@ public class ContactCreationTests extends TestBase {
 
     @Test
     public void CanCreateContactWithMainFields() {
-        app.contacs().CreateContact(new ContactData()
+        app.contacs().createContact(new ContactData()
                 .withFirstName("Ivan")
                 .withMiddleName("Ivanovich")
                 .withLastName("Ivanov")
