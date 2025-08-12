@@ -25,7 +25,7 @@ public record ContactData
          String anniversaryYear,
          String group) {
     public ContactData() {
-        this("","","","","","","","","","","","","","","","","-","-","","-","-","","");
+        this("","","","","","","","","","","","","","","","","-","-","","-","-","","[none]");
     }
 
     public ContactData withFirstName(String first_name) {

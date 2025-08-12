@@ -1,53 +1,67 @@
 package tests;
-
 import model.ContactData;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ContactCreationTests extends TestBase {
 
-    @Test
-    public void CanCreateContactEmpty() {
-        app.contacs().createContact(new ContactData());
+
+    public static List<ContactData> contactProvider() {
+    //Инициализация списка сонтактов
+        var result = new ArrayList<ContactData>(List.of(
+
+    //Инициализация контакта с пустыми полями
+                new ContactData(),
+
+    //Инициализация контакта с основными полями
+                new ContactData()
+                .withFirstName(randomString(10))
+                .withMiddleName(randomString(10))
+                .withLastName(randomString(10))
+                .withAddress(randomString(10))
+                .withMobilePhone(randomPhone())
+                .withEmail(randomEmail(10))
+                .withBirthday(randomDay(), randomMonth(), randomYear())));
+
+    //Добавление контактов с заполненными полями в список
+        for (int i = 0; i < 5; i++) {
+            result.add(
+                    new ContactData()
+                            .withFirstName(randomString(i + 3))
+                            .withMiddleName(randomString(i + 3))
+                            .withLastName(randomString(i + 3))
+                            .withNickname(randomString(i + 3))
+                            .withPhoto("src/test/resources/AJ_Computer.png")
+                            .withTitle(randomString(i + 3))
+                            .withCompany(randomString(i + 3))
+                            .withAddress(randomString(i + 3))
+                            .withHomePhone(randomPhone())
+                            .withMobilePhone(randomPhone())
+                            .withWorkPhone(randomPhone())
+                            .withFax(randomPhone())
+                            .withEmail(randomEmail(i+3))
+                            .withEmail2(randomEmail(i+3))
+                            .withEmail3(randomEmail(i+3))
+                            .withHomePage(randomString(i + 3))
+                            .withBirthday(randomDay(), randomMonth(), randomYear())
+                            .withAnniversary(randomDay(), randomMonth(), randomYear())
+                            .withGroup("[none]"));
+        }
+        return result;
     }
 
-    @Test
-    public void CanCreateContact() {
+@ParameterizedTest
+@MethodSource("contactProvider")
+
+//Тест на создание нескольких контактов со сгенерированными данными
+
+        public void CanCreateMultipleContact(ContactData contact) {
         int contactCount = app.contacs().getCount();
-        app.contacs().createContact(new ContactData()
-                .withFirstName("Peter")
-                .withMiddleName("Ivanovich")
-                .withLastName("Ivanov")
-                .withNickname("Jhoan")
-                .withPhoto("src/test/resources/AJ_Computer.png")
-                .withTitle("Title")
-                .withCompany("Company")
-                .withAddress("Moscow")
-                .withHomePhone("+79457776655")
-                .withMobilePhone("+79869994455")
-                .withWorkPhone("+79456661122")
-                .withFax("+79456662233")
-                .withEmail("tuirut@email.com")
-                .withEmail2("tuirut_2@email.com")
-                .withEmail3("tuirut_3@email.com")
-                .withHomePage("www.example.com")
-                .withBirthday("12", "December", "2012")
-                .withAnniversary("1", "January", "2025")
-                .withGroup("group name 1"));
+        app.contacs().createContact(contact);
         int nextContactCount = app.contacs().getCount();
         Assertions.assertEquals(contactCount+1,nextContactCount);
-    }
-
-    @Test
-    public void CanCreateContactWithMainFields() {
-        app.contacs().createContact(new ContactData()
-                .withFirstName("Ivan")
-                .withMiddleName("Ivanovich")
-                .withLastName("Ivanov")
-                .withAddress("Moscow")
-                .withMobilePhone("+79869994455")
-                .withEmail("tuirut@email.com")
-                .withBirthday("12", "December", "2002")
-                .withGroup("any name"));
     }
 }
