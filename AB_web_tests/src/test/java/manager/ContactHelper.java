@@ -2,6 +2,7 @@ package manager;
 
 import model.ContactData;
 import org.openqa.selenium.By;
+import java.util.ArrayList;
 
 public class ContactHelper extends HelperBase {
 
@@ -49,11 +50,11 @@ public class ContactHelper extends HelperBase {
         select(By.name("aday"), fieldName.anniversaryDay());
         select(By.name("amonth"), fieldName.anniversaryMonth());
         type(By.name("ayear"), fieldName.anniversaryYear());
-        select(By.name("new_group"),fieldName.group());
+        //select(By.name("group"), "[none]");
     }
 
-    public void deleteContact() {
-        selectContact();
+    public void deleteContact(ContactData contact) {
+        selectContact(contact);
         deleteSelectedContacts();
         returnToHomePage();
     }
@@ -64,16 +65,50 @@ public class ContactHelper extends HelperBase {
         deleteSelectedContacts();
     }
 
+    public void modifyContact(ContactData contact, ContactData modifiedContact) {
+        selectContact(contact);
+        initContactModify(contact);
+        fillContactForm(modifiedContact);
+        submitContactModification();
+        returnToHomePage();
+
+
+    }
+
+    private void initContactModify(ContactData contact) {
+        click(By.cssSelector(String.format("a[href='edit.php?id=%s']", contact.id())));
+
+    }
+
+    public ArrayList<ContactData> getList() {
+        returnToHomePage();
+        var contacts = new ArrayList<ContactData>();
+        var trs = manager.driver.findElements(By.cssSelector("tr[name=entry]"));
+        for (var tr : trs) {
+            var firstName = tr.findElement(By.xpath("./td[3]")).getText();
+            var lastName = tr.findElement(By.xpath("./td[2]")).getText();
+            var checkbox = tr.findElement(By.name("selected[]"));
+            var id = checkbox.getAttribute("value");
+            contacts.add(new ContactData().withId(id).withFirstName(firstName).withLastName(lastName));
+        }
+        return contacts;
+    }
+
 
 // Вспомогательные методы
 
-    private void selectContact() {
-        click(By.name("selected[]"));
+    private void selectContact(ContactData contact) {
+        click(By.cssSelector(String.format("input[value='%s']", contact.id())));
     }
 
     private void submitContactCreation() {
         click(By.name("submit"));
     }
+
+    private void submitContactModification() {
+        click(By.name("update"));
+    }
+
 
     private void returnToHomePage() {
         click(By.linkText("home"));

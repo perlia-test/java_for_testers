@@ -43,7 +43,7 @@ public class ApplicationManager {
         return groups;
     }
 
-    public ContactHelper contacs() {
+    public ContactHelper contacts() {
         if (contacs == null) {
             contacs = new ContactHelper(this);
         }

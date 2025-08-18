@@ -1,7 +1,8 @@
 package model;
 
 public record ContactData
-        (String first_name,
+        (String id,
+         String first_name,
          String middle_name,
          String last_name,
          String nickname,
@@ -25,11 +26,40 @@ public record ContactData
          String anniversaryYear,
          String group) {
     public ContactData() {
-        this("","","","","","","","","","","","","","","","","-","-","","-","-","","[none]");
+        this("","","","","","","","","","","","","","","","","","-","-","","-","-","","[none]");
+    }
+
+    public ContactData withId(String id) {
+        return new ContactData(
+                id,
+                this.first_name,
+                this.middle_name,
+                this.last_name,
+                this.nickname,
+                this.photo,
+                this.title,
+                this.company,
+                this.address,
+                this.home_phone,
+                this.mobile_phone,
+                this.work_phone,
+                this.fax,
+                this.email,
+                this.email_2,
+                this.email_3,
+                this.homepage,
+                this.birthdayDay,
+                this.birthdayMonth,
+                this.birthdayYear,
+                this.anniversaryDay,
+                this.anniversaryMonth,
+                this.anniversaryYear,
+                this.group);
     }
 
     public ContactData withFirstName(String first_name) {
         return new ContactData(
+                this.id,
                 first_name,
                 this.middle_name,
                 this.last_name,
@@ -57,6 +87,7 @@ public record ContactData
 
     public ContactData withMiddleName(String middle_name) {
         return new ContactData(
+                this.id,
                 this.first_name,
                 middle_name,
                 this.last_name,
@@ -84,6 +115,7 @@ public record ContactData
 
     public ContactData withLastName(String last_name) {
         return new ContactData(
+                this.id,
                 this.first_name,
                 this.middle_name,
                 last_name,
@@ -111,6 +143,7 @@ public record ContactData
 
     public ContactData withNickname(String nickname) {
         return new ContactData(
+                this.id,
                 this.first_name,
                 this.middle_name,
                 this.last_name,
@@ -138,6 +171,7 @@ public record ContactData
 
     public ContactData withPhoto(String photo) {
         return new ContactData(
+                this.id,
                 this.first_name,
                 this.middle_name,
                 this.last_name,
@@ -165,6 +199,7 @@ public record ContactData
 
     public ContactData withTitle(String title) {
         return new ContactData(
+                this.id,
                 this.first_name,
                 this.middle_name,
                 this.last_name,
@@ -192,6 +227,7 @@ public record ContactData
 
     public ContactData withCompany(String company) {
         return new ContactData(
+                this.id,
                 this.first_name,
                 this.middle_name,
                 this.last_name,
@@ -219,6 +255,7 @@ public record ContactData
 
     public ContactData withAddress(String address) {
         return new ContactData(
+                this.id,
                 this.first_name,
                 this.middle_name,
                 this.last_name,
@@ -246,6 +283,7 @@ public record ContactData
 
     public ContactData withHomePhone(String home_phone) {
         return new ContactData(
+                this.id,
                 this.first_name,
                 this.middle_name,
                 this.last_name,
@@ -273,6 +311,7 @@ public record ContactData
 
     public ContactData withMobilePhone(String mobile_phone) {
         return new ContactData(
+                this.id,
                 this.first_name,
                 this.middle_name,
                 this.last_name,
@@ -300,6 +339,7 @@ public record ContactData
 
     public ContactData withWorkPhone(String work_phone) {
         return new ContactData(
+                this.id,
                 this.first_name,
                 this.middle_name,
                 this.last_name,
@@ -327,6 +367,7 @@ public record ContactData
 
     public ContactData withFax(String fax) {
         return new ContactData(
+                this.id,
                 this.first_name,
                 this.middle_name,
                 this.last_name,
@@ -354,6 +395,7 @@ public record ContactData
 
     public ContactData withEmail(String email) {
         return new ContactData(
+                this.id,
                 this.first_name,
                 this.middle_name,
                 this.last_name,
@@ -381,6 +423,7 @@ public record ContactData
 
     public ContactData withEmail2(String email_2) {
         return new ContactData(
+                this.id,
                 this.first_name,
                 this.middle_name,
                 this.last_name,
@@ -408,6 +451,7 @@ public record ContactData
 
     public ContactData withEmail3(String email_3) {
         return new ContactData(
+                this.id,
                 this.first_name,
                 this.middle_name,
                 this.last_name,
@@ -435,6 +479,7 @@ public record ContactData
 
     public ContactData withHomePage(String homepage) {
         return new ContactData(
+                this.id,
                 this.first_name,
                 this.middle_name,
                 this.last_name,
@@ -462,6 +507,7 @@ public record ContactData
 
     public ContactData withBirthday(String birthdayDay, String birthdayMonth, String birthdayYear) {
         return new ContactData(
+                this.id,
                 this.first_name,
                 this.middle_name,
                 this.last_name,
@@ -489,6 +535,7 @@ public record ContactData
 
     public ContactData withAnniversary(String anniversaryDay, String anniversaryMonth, String anniversaryYear) {
         return new ContactData(
+                this.id,
                 this.first_name,
                 this.middle_name,
                 this.last_name,
@@ -516,6 +563,7 @@ public record ContactData
 
     public ContactData withGroup(String group) {
         return new ContactData(
+                this.id,
                 this.first_name,
                 this.middle_name,
                 this.last_name,
@@ -540,4 +588,5 @@ public record ContactData
                 this.anniversaryYear,
                 group);
     }
+
 }
