@@ -4,6 +4,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.Select;
 
 import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class HelperBase {
     protected final ApplicationManager manager;
@@ -29,6 +31,6 @@ public class HelperBase {
     }
 
     protected void attach(By locator, String file_path) {
-        manager.driver.findElement(locator).sendKeys(new File(file_path).getAbsolutePath());
+        manager.driver.findElement(locator).sendKeys(Paths.get(file_path).toAbsolutePath().toString()); //new File(file_path).getAbsolutePath());
     }
 }
