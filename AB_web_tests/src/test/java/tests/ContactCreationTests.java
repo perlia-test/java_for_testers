@@ -84,15 +84,16 @@ public class ContactCreationTests extends TestBase {
 //Тест на создание нескольких контактов со сгенерированными данными
 
 public void CanCreateMultipleContact(ContactData contact) {
-    var oldContacts = app.contacts().getList();
+    var oldContacts = app.hbm().getContactList();
     app.contacts().createContact(contact);
-    var newContacts = app.contacts().getList();
+    var newContacts = app.hbm().getContactList();
     Comparator<ContactData> compareAll = Comparator
             .comparing((ContactData c) -> Integer.parseInt(c.id()))
             .thenComparing(ContactData::first_name)
             .thenComparing(ContactData::last_name);
     var expectedList = new ArrayList<>(oldContacts);
-    expectedList.add(contact.withId(newContacts.get(newContacts.size() - 1).id()));
+    var maxId = newContacts.get(newContacts.size() - 1).id();
+    expectedList.add(contact.withId(maxId));
     newContacts.sort(compareAll);
     expectedList.sort(compareAll);
     Assertions.assertEquals(newContacts, expectedList);

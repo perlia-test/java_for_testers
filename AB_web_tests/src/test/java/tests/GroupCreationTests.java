@@ -10,6 +10,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -48,18 +49,21 @@ public class GroupCreationTests extends TestBase {
     @ParameterizedTest
     @MethodSource("groupProvider")
     public void CanCreateMultipleGroups(GroupData group) {
-        var oldGroups = app.groups().getList();
+        //var oldGroups = app.groups().getList(); Получаем списк групп из интерфейса
+        var oldGroups = app.hbm().getGroupList(); //Получаем текущий список групп из БД
         app.groups().createGroup(group);
-        var newGroups = app.groups().getList();
+        var newGroups = app.hbm().getGroupList(); //Получаем новый список групп из БД
         Comparator<GroupData> compareById = (o1, o2) -> {
             return Integer.compare(Integer.parseInt(o1.id()), Integer.parseInt(o2.id()));
         };
         newGroups.sort(compareById);
         var expectedList = new ArrayList<>(oldGroups);
-        expectedList.add(group.withId(newGroups.get(newGroups.size() - 1).id()).withHeader("").withFooter(""));
+        var maxId = newGroups.get(newGroups.size() - 1).id();
+        expectedList.add(group.withId(maxId));
         expectedList.sort(compareById);
         Assertions.assertEquals(newGroups, expectedList);
     }
+
 
     public static List<GroupData> negativeGroupProvider() {
         var result = new ArrayList<GroupData>(List.of(

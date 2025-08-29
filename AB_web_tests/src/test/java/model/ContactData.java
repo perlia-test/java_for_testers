@@ -23,10 +23,9 @@ public record ContactData
          String birthdayYear,
          String anniversaryDay,
          String anniversaryMonth,
-         String anniversaryYear,
-         String group) {
+         String anniversaryYear) {
     public ContactData() {
-        this("","","","","","","","","","","","","","","","","","-","-","","-","-","","[none]");
+        this("","","","","","","","","","","","","","","","","","-","-","","-","-","");
     }
 
     public ContactData withId(String id) {
@@ -53,8 +52,7 @@ public record ContactData
                 this.birthdayYear,
                 this.anniversaryDay,
                 this.anniversaryMonth,
-                this.anniversaryYear,
-                this.group);
+                this.anniversaryYear);
     }
 
     public ContactData withFirstName(String first_name) {
@@ -81,8 +79,7 @@ public record ContactData
                 this.birthdayYear,
                 this.anniversaryDay,
                 this.anniversaryMonth,
-                this.anniversaryYear,
-                this.group);
+                this.anniversaryYear);
     }
 
     public ContactData withMiddleName(String middle_name) {
@@ -109,8 +106,7 @@ public record ContactData
                 this.birthdayYear,
                 this.anniversaryDay,
                 this.anniversaryMonth,
-                this.anniversaryYear,
-                this.group);
+                this.anniversaryYear);
     }
 
     public ContactData withLastName(String last_name) {
@@ -137,8 +133,7 @@ public record ContactData
                 this.birthdayYear,
                 this.anniversaryDay,
                 this.anniversaryMonth,
-                this.anniversaryYear,
-                this.group);
+                this.anniversaryYear);
     }
 
     public ContactData withNickname(String nickname) {
@@ -165,8 +160,7 @@ public record ContactData
                 this.birthdayYear,
                 this.anniversaryDay,
                 this.anniversaryMonth,
-                this.anniversaryYear,
-                this.group);
+                this.anniversaryYear);
     }
 
     public ContactData withPhoto(String photo) {
@@ -193,8 +187,7 @@ public record ContactData
                 this.birthdayYear,
                 this.anniversaryDay,
                 this.anniversaryMonth,
-                this.anniversaryYear,
-                this.group);
+                this.anniversaryYear);
     }
 
     public ContactData withTitle(String title) {
@@ -221,8 +214,7 @@ public record ContactData
                 this.birthdayYear,
                 this.anniversaryDay,
                 this.anniversaryMonth,
-                this.anniversaryYear,
-                this.group);
+                this.anniversaryYear);
     }
 
     public ContactData withCompany(String company) {
@@ -249,8 +241,7 @@ public record ContactData
                 this.birthdayYear,
                 this.anniversaryDay,
                 this.anniversaryMonth,
-                this.anniversaryYear,
-                this.group);
+                this.anniversaryYear);
     }
 
     public ContactData withAddress(String address) {
@@ -277,8 +268,7 @@ public record ContactData
                 this.birthdayYear,
                 this.anniversaryDay,
                 this.anniversaryMonth,
-                this.anniversaryYear,
-                this.group);
+                this.anniversaryYear);
     }
 
     public ContactData withHomePhone(String home_phone) {
@@ -305,8 +295,7 @@ public record ContactData
                 this.birthdayYear,
                 this.anniversaryDay,
                 this.anniversaryMonth,
-                this.anniversaryYear,
-                this.group);
+                this.anniversaryYear);
     }
 
     public ContactData withMobilePhone(String mobile_phone) {
@@ -333,8 +322,7 @@ public record ContactData
                 this.birthdayYear,
                 this.anniversaryDay,
                 this.anniversaryMonth,
-                this.anniversaryYear,
-                this.group);
+                this.anniversaryYear);
     }
 
     public ContactData withWorkPhone(String work_phone) {
@@ -361,8 +349,7 @@ public record ContactData
                 this.birthdayYear,
                 this.anniversaryDay,
                 this.anniversaryMonth,
-                this.anniversaryYear,
-                this.group);
+                this.anniversaryYear);
     }
 
     public ContactData withFax(String fax) {
@@ -389,8 +376,7 @@ public record ContactData
                 this.birthdayYear,
                 this.anniversaryDay,
                 this.anniversaryMonth,
-                this.anniversaryYear,
-                this.group);
+                this.anniversaryYear);
     }
 
     public ContactData withEmail(String email) {
@@ -417,8 +403,7 @@ public record ContactData
                 this.birthdayYear,
                 this.anniversaryDay,
                 this.anniversaryMonth,
-                this.anniversaryYear,
-                this.group);
+                this.anniversaryYear);
     }
 
     public ContactData withEmail2(String email_2) {
@@ -445,8 +430,7 @@ public record ContactData
                 this.birthdayYear,
                 this.anniversaryDay,
                 this.anniversaryMonth,
-                this.anniversaryYear,
-                this.group);
+                this.anniversaryYear);
     }
 
     public ContactData withEmail3(String email_3) {
@@ -473,8 +457,7 @@ public record ContactData
                 this.birthdayYear,
                 this.anniversaryDay,
                 this.anniversaryMonth,
-                this.anniversaryYear,
-                this.group);
+                this.anniversaryYear);
     }
 
     public ContactData withHomePage(String homepage) {
@@ -501,8 +484,7 @@ public record ContactData
                 this.birthdayYear,
                 this.anniversaryDay,
                 this.anniversaryMonth,
-                this.anniversaryYear,
-                this.group);
+                this.anniversaryYear);
     }
 
     public ContactData withBirthday(String birthdayDay, String birthdayMonth, String birthdayYear) {
@@ -529,8 +511,7 @@ public record ContactData
                 birthdayYear,
                 this.anniversaryDay,
                 this.anniversaryMonth,
-                this.anniversaryYear,
-                this.group);
+                this.anniversaryYear);
     }
 
     public ContactData withAnniversary(String anniversaryDay, String anniversaryMonth, String anniversaryYear) {
@@ -557,36 +538,7 @@ public record ContactData
                 this.birthdayYear,
                 anniversaryDay,
                 anniversaryMonth,
-                anniversaryYear,
-                this.group);
-    }
-
-    public ContactData withGroup(String group) {
-        return new ContactData(
-                this.id,
-                this.first_name,
-                this.middle_name,
-                this.last_name,
-                this.nickname,
-                this.photo,
-                this.title,
-                this.company,
-                this.address,
-                this.home_phone,
-                this.mobile_phone,
-                this.work_phone,
-                this.fax,
-                this.email,
-                this.email_2,
-                this.email_3,
-                this.homepage,
-                this.birthdayDay,
-                this.birthdayMonth,
-                this.birthdayYear,
-                this.anniversaryDay,
-                this.anniversaryMonth,
-                this.anniversaryYear,
-                group);
+                anniversaryYear);
     }
 
 }

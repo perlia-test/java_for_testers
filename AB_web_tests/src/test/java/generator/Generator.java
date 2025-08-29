@@ -61,7 +61,7 @@ public class Generator {
                             .withMiddleName(CommonFunctions.randomString(i + 3))
                             .withLastName(CommonFunctions.randomString(i + 3))
                             .withNickname(CommonFunctions.randomString(i + 3))
-                            .withPhoto(CommonFunctions.randomFile("src/test/resources/images"))
+                            .withPhoto("")                        //CommonFunctions.randomFile("src/test/resources/images"))
                             .withTitle(CommonFunctions.randomString(i + 3))
                             .withCompany(CommonFunctions.randomString(i + 3))
                             .withAddress(CommonFunctions.randomString(i + 3))
@@ -74,8 +74,7 @@ public class Generator {
                             .withEmail3(CommonFunctions.randomEmail(i + 3))
                             .withHomePage(CommonFunctions.randomString(i + 3))
                             .withBirthday(CommonFunctions.randomDay(), CommonFunctions.randomMonth(), CommonFunctions.randomYear())
-                            .withAnniversary(CommonFunctions.randomDay(), CommonFunctions.randomMonth(), CommonFunctions.randomYear())
-                            .withGroup("[none]"));
+                            .withAnniversary(CommonFunctions.randomDay(), CommonFunctions.randomMonth(), CommonFunctions.randomYear()));
         }
             return result;
 
