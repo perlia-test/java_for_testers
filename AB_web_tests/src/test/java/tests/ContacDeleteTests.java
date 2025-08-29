@@ -20,11 +20,11 @@ public class ContacDeleteTests extends TestBase {
                         .withEmail("tuirut@email.com")
                         .withBirthday("12", "December", "2002"));
             }
-            var oldListContacts = app.contacts().getList();
+            var oldListContacts = app.hbm().getContactList();
             var rnd = new Random();
             var index = rnd.nextInt(oldListContacts.size());
             app.contacts().deleteContact(oldListContacts.get(index));
-            var newListContacts = app.contacts().getList();
+            var newListContacts = app.hbm().getContactList();
             var expectedList = new ArrayList<>(oldListContacts);
             expectedList.remove(index);
             Assertions.assertEquals(newListContacts, expectedList);
