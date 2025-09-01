@@ -2,6 +2,7 @@ package tests;
 
 import common.CommonFunctions;
 import model.ContactData;
+import model.GroupData;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -13,7 +14,7 @@ public class ContactModificationTests extends TestBase {
 
 @Test
 void canModifyContact() {
-    if (app.contacts().getCount() == 0) {
+    /*if (app.contacts().getCount() == 0) {
         app.contacts().createContact(new ContactData()
                 .withFirstName("Ivan")
                 .withMiddleName("Ivanovich")
@@ -21,8 +22,20 @@ void canModifyContact() {
                 .withAddress("Moscow")
                 .withMobilePhone("+79869994455")
                 .withEmail("tuirut@email.com")
-                .withBirthday("12", "December", "2002"));
+                .withBirthday("12", "December", "2002"));*/
+
+    if (app.hbm().getContactCount() == 0) {
+        app.hbm().createContact(new ContactData()
+                .withId("")
+                .withFirstName(CommonFunctions.randomString(3))
+                .withMiddleName(CommonFunctions.randomString(3))
+                .withLastName(CommonFunctions.randomString(3))
+                .withAddress(CommonFunctions.randomString(3))
+                .withMobilePhone(CommonFunctions.randomPhone())
+                .withEmail(CommonFunctions.randomEmail(5))
+                .withBirthday(CommonFunctions.randomDay(), CommonFunctions.randomMonth(), CommonFunctions.randomYear()));
     }
+
     var oldContact = app.hbm().getContactList();
     var rnd = new Random();
     var index = rnd.nextInt(oldContact.size());
@@ -57,4 +70,23 @@ void canModifyContact() {
     Assertions.assertEquals(newContact, expectedList);
 
 }
+
+void canAddContactToGroup(){
+    if (app.hbm().getContactCount() == 0) {
+        app.hbm().createContact(new ContactData()
+                .withId("")
+                .withFirstName(CommonFunctions.randomString(3))
+                .withMiddleName(CommonFunctions.randomString(3))
+                .withLastName(CommonFunctions.randomString(3))
+                .withAddress(CommonFunctions.randomString(3))
+                .withMobilePhone(CommonFunctions.randomPhone())
+                .withEmail(CommonFunctions.randomEmail(5))
+                .withBirthday(CommonFunctions.randomDay(), CommonFunctions.randomMonth(), CommonFunctions.randomYear()));
+    }
+
+    if (app.hbm().getGroupCount() == 0) {
+        app.hbm().createGroup(new GroupData("", "group name 1", "group header 1", "group footer 1"));
+
+    }
+    addGroupForContact();
 }

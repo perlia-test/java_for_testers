@@ -1,6 +1,7 @@
 package tests;
 
 import model.ContactData;
+import model.GroupData;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
@@ -10,7 +11,7 @@ public class ContacDeleteTests extends TestBase {
 
     @Test
         public void CanDeleteContact() {
-            if (app.contacts().getCount() == 0) {
+           /*if (app.contacts().getCount() == 0) {
                 app.contacts().createContact(new ContactData()
                         .withFirstName("Ivan")
                         .withMiddleName("Ivanovich")
@@ -19,7 +20,18 @@ public class ContacDeleteTests extends TestBase {
                         .withMobilePhone("+79869994455")
                         .withEmail("tuirut@email.com")
                         .withBirthday("12", "December", "2002"));
-            }
+            }*/
+        if (app.hbm().getContactCount() == 0) {
+            app.hbm().createContact(new ContactData()
+                    .withId("")
+                    .withFirstName("Ivan")
+                    .withMiddleName("Ivanovich")
+                    .withLastName("Ivanov")
+                    .withAddress("Moscow")
+                    .withMobilePhone("+79869994455")
+                    .withEmail("tuirut@email.com")
+                    .withBirthday("12", "December", "2002"));
+        }
             var oldListContacts = app.hbm().getContactList();
             var rnd = new Random();
             var index = rnd.nextInt(oldListContacts.size());
@@ -32,8 +44,8 @@ public class ContacDeleteTests extends TestBase {
 
         @Test
         void CanDeleteAllContacts() {
-            if (app.contacts().getCount() == 0) {
-                app.contacts().createContact(new ContactData()
+            if (app.hbm().getContactCount() == 0) {
+                app.hbm().createContact(new ContactData()
                         .withFirstName("Sidor")
                         .withMiddleName("Sidorovich")
                         .withLastName("Sidorov")
@@ -43,6 +55,6 @@ public class ContacDeleteTests extends TestBase {
                         .withBirthday("12", "December", "2001"));
             }
             app.contacts().deleteAllContacts();
-            Assertions.assertEquals(0,app.contacts().getCount());
+            Assertions.assertEquals(0,app.hbm().getContactCount());
         }
 }

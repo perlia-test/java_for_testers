@@ -2,9 +2,11 @@ package tests;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import common.CommonFunctions;
+import manager.hbm.ContactRecord;
 import model.ContactData;
 import model.GroupData;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
@@ -97,5 +99,30 @@ public void CanCreateMultipleContact(ContactData contact) {
     newContacts.sort(compareAll);
     expectedList.sort(compareAll);
     Assertions.assertEquals(newContacts, expectedList);
+    }
+
+    @Test
+    public void CanCreateContactInGroup() {
+        var contact = new ContactData()
+                .withFirstName(CommonFunctions.randomString(3))
+                .withLastName(CommonFunctions.randomString(3))
+                .withPhoto(CommonFunctions.randomFile("src/test/resources/images"));
+        if (app.hbm().getGroupCount() == 0) {
+            app.hbm().createGroup(new GroupData("", "group name 1", "group header 1", "group footer 1"));
+        }
+        var group = app.hbm().getGroupList().get(0);
+        var oldRelated = app.hbm().getContactsInGroup(group);
+        app.contacts().create(contact, group);
+        var newRelated = app.hbm().getContactsInGroup(group);
+        Comparator<ContactData> compareAll = Comparator
+                .comparing((ContactData c) -> Integer.parseInt(c.id()))
+                .thenComparing(ContactData::first_name)
+                .thenComparing(ContactData::last_name);
+        var expectedRelated = new ArrayList<>(oldRelated);
+        var maxId = newRelated.get(newRelated.size() - 1).id();
+        expectedRelated.add(contact.withId(maxId));
+        newRelated.sort(compareAll);
+        expectedRelated.sort(compareAll);
+        Assertions.assertEquals(newRelated, expectedRelated);
     }
 }

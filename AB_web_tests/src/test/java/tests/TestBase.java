@@ -2,6 +2,7 @@ package tests;
 
 import com.fasterxml.jackson.databind.annotation.JsonAppend;
 import manager.ApplicationManager;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 
 import java.io.FileNotFoundException;
@@ -25,5 +26,11 @@ public class TestBase {
         }
 
     }
+    @AfterEach
+    void checkDatabaseConsistancy(){
+        app.jdbc().checkConsistancy();
+    }
+
+
 }
 
