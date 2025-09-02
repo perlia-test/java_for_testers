@@ -90,19 +90,14 @@ public class ContactHelper extends HelperBase {
     }
 
     public void addGroupForContact() {
-        selectContact();
-        selectGroup();
-        addGroup();
-        submitContactModification();
+        returnToHomePage();
+        selectContactForGroup();
+        selectGroupForContact();
         returnToHomePage();
 
 
     }
 
-    private void initContactModify(ContactData contact) {
-        click(By.cssSelector(String.format("a[href='edit.php?id=%s']", contact.id())));
-
-    }
 
     public ArrayList<ContactData> getList() {
         returnToHomePage();
@@ -118,11 +113,41 @@ public class ContactHelper extends HelperBase {
         return contacts;
     }
 
+    public void removeContactFromGroup(GroupData group) {
+        returnToHomePage();
+        selectFilter(group);
+        selectContactForGroup();
+        removeContactGroup();
+        returnToHomePage();
+    }
+
+
 
 // Вспомогательные методы
 
+    private void removeContactGroup() {
+        click(By.name("remove"));
+    }
+
+    private void selectFilter(GroupData group) {
+        select(By.name("group"),group.name());
+    }
+
     private void selectContact(ContactData contact) {
         click(By.cssSelector(String.format("input[value='%s']", contact.id())));
+    }
+
+    private void selectGroupForContact() {
+        click(By.name("add"));
+    }
+
+    private void selectContactForGroup() {
+        click(By.name("selected[]"));
+    }
+
+    private void initContactModify(ContactData contact) {
+        click(By.cssSelector(String.format("a[href='edit.php?id=%s']", contact.id())));
+
     }
 
     private void submitContactCreation() {
@@ -157,4 +182,5 @@ public class ContactHelper extends HelperBase {
             checkbox.click();
         }
     }
+
 }
