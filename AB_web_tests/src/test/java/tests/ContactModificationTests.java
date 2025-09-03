@@ -84,14 +84,14 @@ public class ContactModificationTests extends TestBase {
                     .withEmail(CommonFunctions.randomEmail(5))
                     .withBirthday(CommonFunctions.randomDay(), CommonFunctions.randomMonth(), CommonFunctions.randomYear()));
         }
-
-        if (app.hbm().getGroupCount() == 0) {
-            app.hbm().createGroup(new GroupData("", "group name 1", "group header 1", "group footer 1"));
-
-        }
-        app.contacts().addGroupForContact();
-
+        var newGroup = new GroupData("", "group for contact", "group header", "group footer");
+        var OldCount = app.jdbc().getAddressInGroupCount();
+        app.contacts().addGroupForContact(newGroup);
+        var NewCount = app.jdbc().getAddressInGroupCount();
+        Assertions.assertEquals(OldCount+1, NewCount);
     }
+
+
     @Test
     void canRemoveContactFromGroup() {
         if (app.hbm().getContactCount() == 0) {
@@ -106,12 +106,13 @@ public class ContactModificationTests extends TestBase {
                     .withBirthday(CommonFunctions.randomDay(), CommonFunctions.randomMonth(), CommonFunctions.randomYear()));
         }
 
-        if (app.hbm().getGroupCount() == 0) {
-            app.hbm().createGroup(new GroupData("", "group name 1", "group header 1", "group footer 1"));
+        var newGroup = new GroupData("", "group for contact", "group header", "group footer");
+        app.groups().createGroup(newGroup);
+        app.contacts().addGroupForContact(newGroup);
+        var OldCount = app.jdbc().getAddressInGroupCount();
+        app.contacts().removeContactFromGroup(newGroup);
+        var NewCount = app.jdbc().getAddressInGroupCount();
+        Assertions.assertEquals(OldCount-1, NewCount);
 
-        }
-        app.contacts().addGroupForContact();
-        var group = app.hbm().getGroupList().get(0);
-        app.contacts().removeContactFromGroup(group);
     }
 }

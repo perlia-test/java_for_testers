@@ -89,15 +89,6 @@ public class ContactHelper extends HelperBase {
 
     }
 
-    public void addGroupForContact() {
-        returnToHomePage();
-        selectContactForGroup();
-        selectGroupForContact();
-        returnToHomePage();
-
-
-    }
-
 
     public ArrayList<ContactData> getList() {
         returnToHomePage();
@@ -113,9 +104,16 @@ public class ContactHelper extends HelperBase {
         return contacts;
     }
 
-    public void removeContactFromGroup(GroupData group) {
+    public void addGroupForContact(GroupData newGroup) {
         returnToHomePage();
-        selectFilter(group);
+        selectContactForGroup();
+        selectGroupForContact(newGroup);
+        returnToHomePage();
+    }
+
+    public void removeContactFromGroup(GroupData newGroup) {
+        returnToHomePage();
+        selectFilter(newGroup);
         selectContactForGroup();
         removeContactGroup();
         returnToHomePage();
@@ -126,7 +124,7 @@ public class ContactHelper extends HelperBase {
 // Вспомогательные методы
 
     private void removeContactGroup() {
-        click(By.name("remove"));
+        click(By.xpath("//input[@type='submit']")); //click(By.name("remove"));
     }
 
     private void selectFilter(GroupData group) {
@@ -137,7 +135,8 @@ public class ContactHelper extends HelperBase {
         click(By.cssSelector(String.format("input[value='%s']", contact.id())));
     }
 
-    private void selectGroupForContact() {
+    private void selectGroupForContact(GroupData group) {
+        select(By.name("to_group"),group.name());
         click(By.name("add"));
     }
 

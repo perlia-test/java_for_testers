@@ -14,6 +14,9 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.function.Supplier;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Generator {
     @Parameter(names = {"--type", "-t"})
@@ -52,43 +55,43 @@ public class Generator {
         } else throw new IllegalArgumentException("Неизвестный тип данных" + type);
     }
 
-    private Object generateContacts() {
-        var result = new ArrayList<ContactData>();
+    private Object generateData(Supplier<Object> dataSupplier) {
+        return Stream.generate(dataSupplier).limit(count).collect(Collectors.toList());
+        /* Изначально было так
+        var result = new ArrayList<Object>();
         for (int i = 0; i < count; i++) {
-            result.add(
-                    new ContactData()
-                            .withFirstName(CommonFunctions.randomString(i + 3))
-                            .withMiddleName(CommonFunctions.randomString(i + 3))
-                            .withLastName(CommonFunctions.randomString(i + 3))
-                            .withNickname(CommonFunctions.randomString(i + 3))
-                            .withPhoto("")                        //CommonFunctions.randomFile("src/test/resources/images"))
-                            .withTitle(CommonFunctions.randomString(i + 3))
-                            .withCompany(CommonFunctions.randomString(i + 3))
-                            .withAddress(CommonFunctions.randomString(i + 3))
-                            .withHomePhone(CommonFunctions.randomPhone())
-                            .withMobilePhone(CommonFunctions.randomPhone())
-                            .withWorkPhone(CommonFunctions.randomPhone())
-                            .withFax(CommonFunctions.randomPhone())
-                            .withEmail(CommonFunctions.randomEmail(i + 3))
-                            .withEmail2(CommonFunctions.randomEmail(i + 3))
-                            .withEmail3(CommonFunctions.randomEmail(i + 3))
-                            .withHomePage(CommonFunctions.randomString(i + 3))
-                            .withBirthday(CommonFunctions.randomDay(), CommonFunctions.randomMonth(), CommonFunctions.randomYear())
-                            .withAnniversary(CommonFunctions.randomDay(), CommonFunctions.randomMonth(), CommonFunctions.randomYear()));
+            result.add(dataSupplier.get());
         }
-            return result;
+        return result;*/
+    }
 
+    private Object generateContacts() {
+        return generateData(() -> new ContactData()
+                .withFirstName(CommonFunctions.randomString(3))
+                .withMiddleName(CommonFunctions.randomString(3))
+                .withLastName(CommonFunctions.randomString(3))
+                .withNickname(CommonFunctions.randomString(3))
+                .withPhoto("")                        //CommonFunctions.randomFile("src/test/resources/images"))
+                .withTitle(CommonFunctions.randomString(3))
+                .withCompany(CommonFunctions.randomString(3))
+                .withAddress(CommonFunctions.randomString(3))
+                .withHomePhone(CommonFunctions.randomPhone())
+                .withMobilePhone(CommonFunctions.randomPhone())
+                .withWorkPhone(CommonFunctions.randomPhone())
+                .withFax(CommonFunctions.randomPhone())
+                .withEmail(CommonFunctions.randomEmail(3))
+                .withEmail2(CommonFunctions.randomEmail(3))
+                .withEmail3(CommonFunctions.randomEmail(3))
+                .withHomePage(CommonFunctions.randomString(3))
+                .withBirthday(CommonFunctions.randomDay(), CommonFunctions.randomMonth(), CommonFunctions.randomYear())
+                .withAnniversary(CommonFunctions.randomDay(), CommonFunctions.randomMonth(), CommonFunctions.randomYear()));
     }
 
     private Object generateGroups() {
-        var result = new ArrayList<GroupData>();
-        for (int i = 0; i < count; i++) {
-            result.add(new GroupData()
-                    .withName(CommonFunctions.randomString(i + 3))
-                    .withHeader(CommonFunctions.randomString(i + 3))
-                    .withFooter(CommonFunctions.randomString(i + 3)));
-        }
-        return result;
+        return generateData(() -> new GroupData()
+                .withName(CommonFunctions.randomString(3))
+                .withHeader(CommonFunctions.randomString(4))
+                .withFooter(CommonFunctions.randomString(5)));
     }
 
     private void save(Object data) throws IOException {

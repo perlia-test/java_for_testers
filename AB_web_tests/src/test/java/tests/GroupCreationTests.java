@@ -2,43 +2,33 @@ package tests;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import common.CommonFunctions;
 import model.GroupData;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 
 public class GroupCreationTests extends TestBase {
 
     public static List<GroupData> groupProvider() throws IOException {
         var result = new ArrayList<GroupData>();
-        /*for (var name : List.of("", "group name")) {
-            for (var header : List.of("", "group header")) {
-                for (var footer : List.of("", "group footer")) {
-                    result.add(new GroupData()
-                            .withName(name)
-                            .withHeader(header)
-                            .withFooter(footer));
-                }
-            }
-        }*/
         var json = "";
-        try (var reader = new FileReader("groups.json");
+        /*try (var reader = new FileReader("groups.json");
              var breader = new BufferedReader(reader)) {
             var line = breader.readLine();
             while (line != null) {
                 json = json + line;
                 line = breader.readLine();
             }
-        }
+        }*/
         ObjectMapper mapper = new ObjectMapper();
       //  var json = Files.readString(Paths.get("groups.json"));
         var value = mapper.readValue(json, new TypeReference<List<GroupData>>() {});
@@ -46,9 +36,19 @@ public class GroupCreationTests extends TestBase {
         return result;
     }
 
+    public static Stream<GroupData> singleRandomGroup() {
+        Supplier<GroupData> randomGroup = () -> new GroupData()
+                .withName(CommonFunctions.randomString(5))
+                .withHeader(CommonFunctions.randomString(5))
+                .withFooter(CommonFunctions.randomString(5));
+        return Stream.generate(randomGroup).limit(3);
+
+
+    }
+
     @ParameterizedTest
-    @MethodSource("groupProvider")
-    public void CanCreateMultipleGroups(GroupData group) {
+    @MethodSource("singleRandomGroup")
+    public void CanCreateGroups(GroupData group) {
         //var oldGroups = app.groups().getList(); Получаем списк групп из интерфейса
         var oldGroups = app.hbm().getGroupList(); //Получаем текущий список групп из БД
         app.groups().createGroup(group);

@@ -4,6 +4,7 @@ import model.ContactData;
 import model.GroupData;
 
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -74,6 +75,7 @@ public class JdbcHelper extends HelperBase {
              var statement = conn.createStatement();
              var result = statement.executeQuery("SELECT * FROM address_in_groups ag JOIN addressbook ab ON ab.id = ag.id WHERE ab.id IS NULL;"))
         {
+
             if (result.next()) {
                 throw new IllegalStateException("DB is corrupted");
             }
@@ -82,4 +84,22 @@ public class JdbcHelper extends HelperBase {
             throw new RuntimeException(e);
         }
     }
-}
+
+    public int getAddressInGroupCount() {
+        try (var conn = DriverManager.getConnection("jdbc:mysql://localhost/addressbook","root","");
+             var statement = conn.createStatement();
+             var result = statement.executeQuery("SELECT COUNT(*) FROM `address_in_groups`;")) {
+             var count = 0;
+             while (result.next()) {
+                count = result.getInt(1);
+            }
+            return count;
+        }
+        catch (SQLException e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+    }

@@ -16,7 +16,7 @@ public class HibernateHelper extends HelperBase {
 
     private SessionFactory sessionFactory;
 
-    public HibernateHelper (ApplicationManager manager) {
+    public HibernateHelper(ApplicationManager manager) {
         super(manager);
 
         sessionFactory = new Configuration()
@@ -24,33 +24,33 @@ public class HibernateHelper extends HelperBase {
                 .addAnnotatedClass(GroupRecord.class)
                 .addAnnotatedClass(ContactRecord.class)
                 .setProperty(URL, "jdbc:mysql://localhost/addressbook?zeroDateTimeBehavior=convertToNull")
-                .setProperty(USER,"root")
+                .setProperty(USER, "root")
                 .setProperty(PASS, "")
                 .buildSessionFactory();
     }
 
     static List<GroupData> convertGroupList(List<GroupRecord> records) {
         List<GroupData> result = new ArrayList<>();
-        for (var record : records){
+        for (var record : records) {
             result.add(convertGroupData(record));
         }
         return result;
     }
 
     private static GroupData convertGroupData(GroupRecord record) {
-        return new GroupData("" + record.id, record.name, record.header,record.footer);
+        return new GroupData("" + record.id, record.name, record.header, record.footer);
     }
 
     private static GroupRecord convertGroupRecord(GroupData data) {
         var id = data.id();
-        if("".equals(id)) {
+        if ("".equals(id)) {
             id = "0";
         }
-        return new GroupRecord(Integer.parseInt(id), data.name(), data.header(),data.footer());
+        return new GroupRecord(Integer.parseInt(id), data.name(), data.header(), data.footer());
     }
 
 
-    public List<GroupData> getGroupList(){
+    public List<GroupData> getGroupList() {
         return convertGroupList(sessionFactory.fromSession(session -> {
             return session.createQuery("from GroupRecord", GroupRecord.class).list();
         }));
@@ -70,16 +70,17 @@ public class HibernateHelper extends HelperBase {
             session.getTransaction().commit();
         });
     }
+
     static List<ContactData> convertContactList(List<ContactRecord> records) {
         List<ContactData> result = new ArrayList<>();
-        for (var record : records){
+        for (var record : records) {
             result.add(convertContactData(record));
         }
         return result;
     }
 
     private static ContactData convertContactData(ContactRecord record) {
-        return new ContactData(""+record.id, record.first_name, record.middle_name, record.last_name,
+        return new ContactData("" + record.id, record.first_name, record.middle_name, record.last_name,
                 record.nickname, "", record.company, record.title,
                 record.address, record.home_phone, record.mobile_phone,
                 record.work_phone, record.fax, record.email, record.email_2, record.email_3,
@@ -89,18 +90,18 @@ public class HibernateHelper extends HelperBase {
 
     private static ContactRecord convertContactRecord(ContactData data) {
         var id = data.id();
-        if("".equals(id)) {
+        if ("".equals(id)) {
             id = "0";
         }
-            return new ContactRecord(Integer.parseInt(id), data.first_name(), data.middle_name(), data.last_name(),
-                    data.nickname(), "", data.company(), data.title(),
-                    data.address(), data.home_phone(), data.mobile_phone(),
-                    data.work_phone(), data.fax(), data.email(), data.email_2(), data.email_3(),
-                    data.homepage(), data.birthdayDay(), data.birthdayMonth(), data.birthdayYear(),
-                    data.anniversaryDay(), data.anniversaryMonth(), data.anniversaryYear());
+        return new ContactRecord(Integer.parseInt(id), data.first_name(), data.middle_name(), data.last_name(),
+                data.nickname(), "", data.company(), data.title(),
+                data.address(), data.home_phone(), data.mobile_phone(),
+                data.work_phone(), data.fax(), data.email(), data.email_2(), data.email_3(),
+                data.homepage(), data.birthdayDay(), data.birthdayMonth(), data.birthdayYear(),
+                data.anniversaryDay(), data.anniversaryMonth(), data.anniversaryYear());
     }
 
-    public List<ContactData> getContactList(){
+    public List<ContactData> getContactList() {
         return convertContactList(sessionFactory.fromSession(session -> {
             return session.createQuery("from ContactRecord", ContactRecord.class).list();
         }));
@@ -126,4 +127,5 @@ public class HibernateHelper extends HelperBase {
             return convertContactList(session.get(GroupRecord.class, group.id()).contacts);
         });
     }
+
 }
