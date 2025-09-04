@@ -61,7 +61,7 @@ public class ContactHelper extends HelperBase {
         select(By.name("bday"), fieldName.birthdayDay());
         select(By.name("bmonth"), fieldName.birthdayMonth());
         type(By.name("byear"), fieldName.birthdayYear());
-        //select(By.name("aday"), fieldName.anniversaryDay().toString());
+        select(By.name("aday"), "-");
         select(By.name("amonth"), fieldName.anniversaryMonth());
         type(By.name("ayear"), fieldName.anniversaryYear());
         //select(By.name("group"), "[none]");
