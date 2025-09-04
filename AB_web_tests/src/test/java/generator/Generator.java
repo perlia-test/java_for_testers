@@ -13,7 +13,6 @@ import model.GroupData;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -57,12 +56,6 @@ public class Generator {
 
     private Object generateData(Supplier<Object> dataSupplier) {
         return Stream.generate(dataSupplier).limit(count).collect(Collectors.toList());
-        /* Изначально было так
-        var result = new ArrayList<Object>();
-        for (int i = 0; i < count; i++) {
-            result.add(dataSupplier.get());
-        }
-        return result;*/
     }
 
     private Object generateContacts() {

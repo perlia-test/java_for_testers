@@ -15,7 +15,6 @@ import jakarta.persistence.Table;
 
         @Column(name = "firstname")
         public String first_name;
-        private String middleName;
 
         @Column(name = "middlename")
         public String middle_name;
@@ -25,6 +24,8 @@ import jakarta.persistence.Table;
 
         @Column(name = "nickname")
         public String nickname;
+
+        @Column(name = "photo")
         private String photo;
 
         @Column(name = "company")
@@ -70,7 +71,7 @@ import jakarta.persistence.Table;
         public String birthdayYear;
 
         @Column(name = "aday")
-        public String anniversaryDay;
+        public Integer anniversaryDay;
 
         @Column(name = "amonth")
         public String anniversaryMonth;
@@ -100,7 +101,7 @@ import jakarta.persistence.Table;
                              String birthdayDay,
                              String birthdayMonth,
                              String birthdayYear,
-                             String anniversaryDay,
+                             Integer anniversaryDay,
                              String anniversaryMonth,
                              String anniversaryYear)
 

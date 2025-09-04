@@ -21,11 +21,11 @@ public record ContactData
          String birthdayDay,
          String birthdayMonth,
          String birthdayYear,
-         String anniversaryDay,
+         Integer anniversaryDay,
          String anniversaryMonth,
          String anniversaryYear) {
     public ContactData() {
-        this("","","","","","","","","","","","","","","","","","-","-","","-","-","");
+        this("","","","","","","","","","","","","","","","","","-","-","",0,"-","");
     }
 
     public ContactData withId(String id) {
@@ -514,7 +514,7 @@ public record ContactData
                 this.anniversaryYear);
     }
 
-    public ContactData withAnniversary(String anniversaryDay, String anniversaryMonth, String anniversaryYear) {
+    public ContactData withAnniversary(Integer anniversaryDay, String anniversaryMonth, String anniversaryYear) {
         return new ContactData(
                 this.id,
                 this.first_name,

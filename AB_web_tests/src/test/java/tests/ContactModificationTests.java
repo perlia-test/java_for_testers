@@ -14,16 +14,6 @@ public class ContactModificationTests extends TestBase {
 
     @Test
     void canModifyContact() {
-    /*if (app.contacts().getCount() == 0) {
-        app.contacts().createContact(new ContactData()
-                .withFirstName("Ivan")
-                .withMiddleName("Ivanovich")
-                .withLastName("Ivanov")
-                .withAddress("Moscow")
-                .withMobilePhone("+79869994455")
-                .withEmail("tuirut@email.com")
-                .withBirthday("12", "December", "2002"));*/
-
         if (app.hbm().getContactCount() == 0) {
             app.hbm().createContact(new ContactData()
                     .withId("")
@@ -85,6 +75,7 @@ public class ContactModificationTests extends TestBase {
                     .withBirthday(CommonFunctions.randomDay(), CommonFunctions.randomMonth(), CommonFunctions.randomYear()));
         }
         var newGroup = new GroupData("", "group for contact", "group header", "group footer");
+        app.groups().createGroup(newGroup);
         var OldCount = app.jdbc().getAddressInGroupCount();
         app.contacts().addGroupForContact(newGroup);
         var NewCount = app.jdbc().getAddressInGroupCount();
