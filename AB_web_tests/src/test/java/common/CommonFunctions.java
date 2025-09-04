@@ -1,5 +1,7 @@
 package common;
 
+import jakarta.persistence.criteria.CriteriaBuilder;
+
 import java.io.File;
 import java.nio.file.Paths;
 import java.util.Random;
@@ -40,8 +42,13 @@ public class CommonFunctions {
         return result;
     }
 
-    public static String randomDay() {
+    public static String randomBday() {
         String day = String.format("%d", new Random().nextInt(30) + 1);
+        return day;
+    }
+
+    public static Integer randomAday() {
+        var day = new Random().nextInt(30) + 1;
         return day;
     }
 

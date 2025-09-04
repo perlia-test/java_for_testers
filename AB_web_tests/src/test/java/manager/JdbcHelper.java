@@ -62,7 +62,7 @@ public class JdbcHelper extends HelperBase {
                         .withEmail3(result.getString("email3"))
                         .withHomePage(result.getString("homepage"))
                         .withBirthday(result.getString("bday"), result.getString("bmonth"), result.getString("byear"))
-                        .withAnniversary(result.getString("aday"), result.getString("amonth"), result.getString("ayear")));
+                        .withAnniversary(result.getInt("aday"), result.getString("amonth"), result.getString("ayear")));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);

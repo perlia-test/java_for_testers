@@ -23,7 +23,7 @@ public class ContactModificationTests extends TestBase {
                     .withAddress(CommonFunctions.randomString(3))
                     .withMobilePhone(CommonFunctions.randomPhone())
                     .withEmail(CommonFunctions.randomEmail(5))
-                    .withBirthday(CommonFunctions.randomDay(), CommonFunctions.randomMonth(), CommonFunctions.randomYear()));
+                    .withBirthday(CommonFunctions.randomBday(), CommonFunctions.randomMonth(), CommonFunctions.randomYear()));
         }
 
         var oldContact = app.hbm().getContactList();
@@ -45,8 +45,8 @@ public class ContactModificationTests extends TestBase {
                 .withEmail2(CommonFunctions.randomEmail(5))
                 .withEmail3(CommonFunctions.randomEmail(5))
                 .withHomePage(CommonFunctions.randomString(5))
-                .withBirthday(CommonFunctions.randomDay(), CommonFunctions.randomMonth(), CommonFunctions.randomYear())
-                .withAnniversary(CommonFunctions.randomDay(), CommonFunctions.randomMonth(), CommonFunctions.randomYear());
+                .withBirthday(CommonFunctions.randomBday(), CommonFunctions.randomMonth(), CommonFunctions.randomYear())
+                .withAnniversary(CommonFunctions.randomAday(), CommonFunctions.randomMonth(), CommonFunctions.randomYear());
 
         app.contacts().modifyContact(oldContact.get(index), modifiedLastName);
         var newContact = app.hbm().getContactList();
@@ -72,7 +72,7 @@ public class ContactModificationTests extends TestBase {
                     .withAddress(CommonFunctions.randomString(3))
                     .withMobilePhone(CommonFunctions.randomPhone())
                     .withEmail(CommonFunctions.randomEmail(5))
-                    .withBirthday(CommonFunctions.randomDay(), CommonFunctions.randomMonth(), CommonFunctions.randomYear()));
+                    .withBirthday(CommonFunctions.randomBday(), CommonFunctions.randomMonth(), CommonFunctions.randomYear()));
         }
         var newGroup = new GroupData("", "group for contact", "group header", "group footer");
         app.groups().createGroup(newGroup);
@@ -94,7 +94,7 @@ public class ContactModificationTests extends TestBase {
                     .withAddress(CommonFunctions.randomString(3))
                     .withMobilePhone(CommonFunctions.randomPhone())
                     .withEmail(CommonFunctions.randomEmail(5))
-                    .withBirthday(CommonFunctions.randomDay(), CommonFunctions.randomMonth(), CommonFunctions.randomYear()));
+                    .withBirthday(CommonFunctions.randomBday(), CommonFunctions.randomMonth(), CommonFunctions.randomYear()));
         }
 
         var newGroup = new GroupData("", "group for contact", "group header", "group footer");
