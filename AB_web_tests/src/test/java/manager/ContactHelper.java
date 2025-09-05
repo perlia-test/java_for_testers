@@ -26,6 +26,7 @@ public class ContactHelper extends HelperBase {
         submitContactCreation();
         returnToHomePage();
     }
+
     public void create(ContactData fieldName, GroupData group) {
         initContactCreation();
         fillContactForm(fieldName);
@@ -89,6 +90,21 @@ public class ContactHelper extends HelperBase {
 
     }
 
+    public void addGroupForContact(GroupData newGroup) {
+        returnToHomePage();
+        checkContactInGroup();
+        selectGroupForContact(newGroup);
+        addToGroup();
+        returnToHomePage();
+    }
+
+    public void removeContactFromGroup(GroupData newGroup) {
+        returnToHomePage();
+        setFilterGroup(newGroup);
+        checkContactInGroup();
+        removeContactGroup();
+        returnToHomePage();
+    }
 
     public ArrayList<ContactData> getList() {
         returnToHomePage();
@@ -104,45 +120,32 @@ public class ContactHelper extends HelperBase {
         return contacts;
     }
 
-    public void addGroupForContact(GroupData newGroup) {
-        returnToHomePage();
-        selectContactForGroup();
-        selectGroupForContact(newGroup);
-        returnToHomePage();
-    }
-
-    public void removeContactFromGroup(GroupData newGroup) {
-        returnToHomePage();
-        selectFilter(newGroup);
-        selectContactForGroup();
-        removeContactGroup();
-        returnToHomePage();
-    }
-
-
-
 // Вспомогательные методы
 
     private void removeContactGroup() {
         click(By.xpath("//input[@type='submit']")); //click(By.name("remove"));
     }
 
-    private void selectFilter(GroupData group) {
-        select(By.name("group"),group.name());
+    private void setFilterGroup(GroupData group) {
+        new Select(manager.driver.findElement(By.name("group"))).selectByValue(group.id());
+    }
+
+    private void selectGroupForContact(GroupData group) {
+        new Select(manager.driver.findElement(By.name("to_group"))).selectByValue(group.id());
+    }
+
+    private void checkContactInGroup() {
+        click(By.name("selected[]"));
     }
 
     private void selectContact(ContactData contact) {
         click(By.cssSelector(String.format("input[value='%s']", contact.id())));
     }
 
-    private void selectGroupForContact(GroupData group) {
-        select(By.name("to_group"),group.name());
+    private void addToGroup() {
         click(By.name("add"));
     }
 
-    private void selectContactForGroup() {
-        click(By.name("selected[]"));
-    }
 
     private void initContactModify(ContactData contact) {
         click(By.cssSelector(String.format("a[href='edit.php?id=%s']", contact.id())));

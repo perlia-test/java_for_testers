@@ -74,8 +74,9 @@ public class ContactModificationTests extends TestBase {
                     .withEmail(CommonFunctions.randomEmail(5))
                     .withBirthday(CommonFunctions.randomBday(), CommonFunctions.randomMonth(), CommonFunctions.randomYear()));
         }
-        var newGroup = new GroupData("", "group for contact", "group header", "group footer");
-        app.groups().createGroup(newGroup);
+        app.hbm().createGroup(new GroupData("", "group for contact", "group header", "group footer"));
+        var index = new Random().nextInt(app.hbm().getGroupList().size()-1);
+        var newGroup = app.hbm().getGroupList().get(index);
         var OldCount = app.jdbc().getAddressInGroupCount();
         app.contacts().addGroupForContact(newGroup);
         var NewCount = app.jdbc().getAddressInGroupCount();
@@ -96,9 +97,9 @@ public class ContactModificationTests extends TestBase {
                     .withEmail(CommonFunctions.randomEmail(5))
                     .withBirthday(CommonFunctions.randomBday(), CommonFunctions.randomMonth(), CommonFunctions.randomYear()));
         }
-
-        var newGroup = new GroupData("", "group for contact", "group header", "group footer");
-        app.groups().createGroup(newGroup);
+        app.hbm().createGroup(new GroupData("", "group for contact", "group header", "group footer"));
+        var index = new Random().nextInt(app.hbm().getGroupList().size()-1);
+        var newGroup = app.hbm().getGroupList().get(index);
         app.contacts().addGroupForContact(newGroup);
         var OldCount = app.jdbc().getAddressInGroupCount();
         app.contacts().removeContactFromGroup(newGroup);
