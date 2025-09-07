@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Random;
-import java.util.Set;
 
 public class ContactModificationTests extends TestBase {
 
@@ -23,7 +22,7 @@ public class ContactModificationTests extends TestBase {
                     .withAddress(CommonFunctions.randomString(3))
                     .withMobilePhone(CommonFunctions.randomPhone())
                     .withEmail(CommonFunctions.randomEmail(5))
-                    .withBirthday(CommonFunctions.randomBday(), CommonFunctions.randomMonth(), CommonFunctions.randomYear()));
+                    .withBirthday(CommonFunctions.randomDay(), CommonFunctions.randomMonth(), CommonFunctions.randomYear()));
         }
 
         var oldContact = app.hbm().getContactList();
@@ -45,8 +44,8 @@ public class ContactModificationTests extends TestBase {
                 .withEmail2(CommonFunctions.randomEmail(5))
                 .withEmail3(CommonFunctions.randomEmail(5))
                 .withHomePage(CommonFunctions.randomString(5))
-                .withBirthday(CommonFunctions.randomBday(), CommonFunctions.randomMonth(), CommonFunctions.randomYear())
-                .withAnniversary(CommonFunctions.randomAday(), CommonFunctions.randomMonth(), CommonFunctions.randomYear());
+                .withBirthday(CommonFunctions.randomDay(), CommonFunctions.randomMonth(), CommonFunctions.randomYear())
+                .withAnniversary(CommonFunctions.randomDay(), CommonFunctions.randomMonth(), CommonFunctions.randomYear());
         app.contacts().modifyContact(oldContact.get(index), modifiedContact);
         var newContacts = app.hbm().getContactList();
         var expectedList = new ArrayList<>(oldContact);
@@ -71,7 +70,7 @@ public class ContactModificationTests extends TestBase {
                     .withAddress(CommonFunctions.randomString(3))
                     .withMobilePhone(CommonFunctions.randomPhone())
                     .withEmail(CommonFunctions.randomEmail(5))
-                    .withBirthday(CommonFunctions.randomBday(), CommonFunctions.randomMonth(), CommonFunctions.randomYear()));
+                    .withBirthday(CommonFunctions.randomDay(), CommonFunctions.randomMonth(), CommonFunctions.randomYear()));
         }
         app.hbm().createGroup(new GroupData("", "group for contact", "group header", "group footer"));
         var index = app.hbm().getGroupList().size()-1;
@@ -94,7 +93,7 @@ public class ContactModificationTests extends TestBase {
                     .withAddress(CommonFunctions.randomString(3))
                     .withMobilePhone(CommonFunctions.randomPhone())
                     .withEmail(CommonFunctions.randomEmail(5))
-                    .withBirthday(CommonFunctions.randomBday(), CommonFunctions.randomMonth(), CommonFunctions.randomYear()));
+                    .withBirthday(CommonFunctions.randomDay(), CommonFunctions.randomMonth(), CommonFunctions.randomYear()));
         }
         app.hbm().createGroup(new GroupData("", "group for contact", "group header", "group footer"));
         var index = app.hbm().getGroupList().size()-1;

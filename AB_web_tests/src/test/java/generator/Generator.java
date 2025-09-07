@@ -75,8 +75,8 @@ public class Generator {
                 .withEmail2(CommonFunctions.randomEmail(3))
                 .withEmail3(CommonFunctions.randomEmail(3))
                 .withHomePage(CommonFunctions.randomString(3))
-                .withBirthday(CommonFunctions.randomBday(), CommonFunctions.randomMonth(), CommonFunctions.randomYear())
-                .withAnniversary(CommonFunctions.randomAday(), CommonFunctions.randomMonth(), CommonFunctions.randomYear()));
+                .withBirthday(CommonFunctions.randomDay(), CommonFunctions.randomMonth(), CommonFunctions.randomYear())
+                .withAnniversary(CommonFunctions.randomDay(), CommonFunctions.randomMonth(), CommonFunctions.randomYear()));
     }
 
     private Object generateGroups() {

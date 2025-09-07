@@ -2,7 +2,6 @@ package tests;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import common.CommonFunctions;
-import manager.hbm.ContactRecord;
 import model.ContactData;
 import model.GroupData;
 import org.junit.jupiter.api.Assertions;
@@ -99,8 +98,8 @@ public class ContactCreationTests extends TestBase {
                 .withEmail2(CommonFunctions.randomEmail(5))
                 .withEmail3(CommonFunctions.randomEmail(5))
                 .withHomePage(CommonFunctions.randomString(3))
-                .withBirthday(CommonFunctions.randomBday(), CommonFunctions.randomMonth(), CommonFunctions.randomYear())
-                .withAnniversary(CommonFunctions.randomAday(), CommonFunctions.randomMonth(), CommonFunctions.randomYear());
+                .withBirthday(CommonFunctions.randomDay(), CommonFunctions.randomMonth(), CommonFunctions.randomYear())
+                .withAnniversary(CommonFunctions.randomDay(), CommonFunctions.randomMonth(), CommonFunctions.randomYear());
 
         return Stream.generate(randomContact).limit(3);
     }
