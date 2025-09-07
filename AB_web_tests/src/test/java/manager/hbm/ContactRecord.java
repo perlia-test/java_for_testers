@@ -62,7 +62,7 @@ import jakarta.persistence.Table;
         public String homepage;
 
         @Column(name = "bday")
-        public String birthdayDay;
+        public Integer birthdayDay;
 
         @Column(name = "bmonth")
         public String birthdayMonth;
@@ -98,7 +98,7 @@ import jakarta.persistence.Table;
                              String email_2,
                              String email_3,
                              String homepage,
-                             String birthdayDay,
+                             Integer birthdayDay,
                              String birthdayMonth,
                              String birthdayYear,
                              Integer anniversaryDay,

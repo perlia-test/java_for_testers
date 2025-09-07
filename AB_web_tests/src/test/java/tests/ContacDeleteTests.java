@@ -30,7 +30,7 @@ public class ContacDeleteTests extends TestBase {
                     .withAddress("Moscow")
                     .withMobilePhone("+79869994455")
                     .withEmail("tuirut@email.com")
-                    .withBirthday("12", "December", "2002"));
+                    .withBirthday(12, "December", "2002"));
         }
             var oldListContacts = app.hbm().getContactList();
             var rnd = new Random();
@@ -52,7 +52,7 @@ public class ContacDeleteTests extends TestBase {
                         .withAddress("St.Peterburg")
                         .withMobilePhone("+79869994466")
                         .withEmail("Sidorov@email.com")
-                        .withBirthday("12", "December", "2001"));
+                        .withBirthday(12, "December", "2001"));
             }
             app.contacts().deleteAllContacts();
             Assertions.assertEquals(0,app.hbm().getContactCount());

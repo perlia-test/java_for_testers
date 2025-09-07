@@ -9,7 +9,6 @@ import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
 import common.CommonFunctions;
 import model.ContactData;
 import model.GroupData;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;

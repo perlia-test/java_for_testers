@@ -13,11 +13,13 @@ import org.junit.jupiter.params.provider.MethodSource;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
+import java.util.function.Supplier;
+import java.util.stream.Stream;
+
 
 public class ContactCreationTests extends TestBase {
 
@@ -79,26 +81,43 @@ public class ContactCreationTests extends TestBase {
         result.addAll(value);
         return result;
     }
+    public static Stream<ContactData> randomContacts() {
+        Supplier<ContactData> randomContact = () -> new ContactData()
+                .withFirstName(CommonFunctions.randomString(3))
+                .withMiddleName(CommonFunctions.randomString(3))
+                .withLastName(CommonFunctions.randomString(3))
+                .withNickname(CommonFunctions.randomString(3))
+                .withPhoto(CommonFunctions.randomFile("src/test/resources/images"))
+                .withTitle(CommonFunctions.randomString(3))
+                .withCompany(CommonFunctions.randomString(3))
+                .withAddress(CommonFunctions.randomString(3))
+                .withHomePhone(CommonFunctions.randomPhone())
+                .withMobilePhone(CommonFunctions.randomPhone())
+                .withWorkPhone(CommonFunctions.randomPhone())
+                .withFax(CommonFunctions.randomPhone())
+                .withEmail(CommonFunctions.randomEmail(5))
+                .withEmail2(CommonFunctions.randomEmail(5))
+                .withEmail3(CommonFunctions.randomEmail(5))
+                .withHomePage(CommonFunctions.randomString(3))
+                .withBirthday(CommonFunctions.randomBday(), CommonFunctions.randomMonth(), CommonFunctions.randomYear())
+                .withAnniversary(CommonFunctions.randomAday(), CommonFunctions.randomMonth(), CommonFunctions.randomYear());
+
+        return Stream.generate(randomContact).limit(3);
+    }
 
 @ParameterizedTest
-@MethodSource("contactProvider")
-
+@MethodSource("randomContacts")
 //Тест на создание нескольких контактов со сгенерированными данными
 
-public void CanCreateMultipleContact(ContactData contact) {
+public void CanCreateContacts(ContactData contact) {
     var oldContacts = app.hbm().getContactList();
     app.contacts().createContact(contact);
     var newContacts = app.hbm().getContactList();
-    Comparator<ContactData> compareAll = Comparator
-            .comparing((ContactData c) -> Integer.parseInt(c.id()))
-            .thenComparing(ContactData::first_name)
-            .thenComparing(ContactData::last_name);
     var expectedList = new ArrayList<>(oldContacts);
-    var maxId = newContacts.get(newContacts.size() - 1).id();
-    expectedList.add(contact.withId(maxId));
-    newContacts.sort(compareAll);
-    expectedList.sort(compareAll);
-    Assertions.assertEquals(newContacts, expectedList);
+    var extraContacts = newContacts.stream().filter(g -> ! oldContacts.contains(g)).toList();
+    var newId = extraContacts.get(0).id();
+    expectedList.add(contact.withId(newId));
+    Assertions.assertEquals(Set.copyOf(newContacts), Set.copyOf(expectedList));
     }
 
     @Test

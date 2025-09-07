@@ -49,8 +49,8 @@ public class CommonFunctions {
         return result;
     }
 
-    public static String randomBday() {
-        String day = String.format("%d", new Random().nextInt(30) + 1);
+    public static Integer randomBday() {
+        var day = new Random().nextInt(30) + 1;
         return day;
     }
 
@@ -63,8 +63,8 @@ public class CommonFunctions {
         var rnd = new Random();
         int minYear = 1910;
         int maxYear = 2025;
-        String aDay = String.format("%dddd",rnd.nextInt(maxYear - minYear + 1) + minYear);
-        return aDay;
+        var year = rnd.nextInt(maxYear - minYear + 1) + minYear;
+        return String.valueOf(year);
     }
 
     public static String randomFile(String directory){

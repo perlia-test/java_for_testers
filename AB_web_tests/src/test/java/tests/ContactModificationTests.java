@@ -5,10 +5,10 @@ import model.ContactData;
 import model.GroupData;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Random;
+import java.util.Set;
 
 public class ContactModificationTests extends TestBase {
 
@@ -29,7 +29,7 @@ public class ContactModificationTests extends TestBase {
         var oldContact = app.hbm().getContactList();
         var rnd = new Random();
         var index = rnd.nextInt(oldContact.size());
-        var modifiedLastName = new ContactData().withFirstName(CommonFunctions.randomString(3))
+        var modifiedContact = new ContactData().withFirstName(CommonFunctions.randomString(3))
                 .withMiddleName(CommonFunctions.randomString(5))
                 .withLastName(CommonFunctions.randomString(5))
                 .withNickname(CommonFunctions.randomString(5))
@@ -47,17 +47,16 @@ public class ContactModificationTests extends TestBase {
                 .withHomePage(CommonFunctions.randomString(5))
                 .withBirthday(CommonFunctions.randomBday(), CommonFunctions.randomMonth(), CommonFunctions.randomYear())
                 .withAnniversary(CommonFunctions.randomAday(), CommonFunctions.randomMonth(), CommonFunctions.randomYear());
-
-        app.contacts().modifyContact(oldContact.get(index), modifiedLastName);
-        var newContact = app.hbm().getContactList();
+        app.contacts().modifyContact(oldContact.get(index), modifiedContact);
+        var newContacts = app.hbm().getContactList();
         var expectedList = new ArrayList<>(oldContact);
-        expectedList.set(index, modifiedLastName.withId(oldContact.get(index).id()));
+        expectedList.set(index, modifiedContact.withId(oldContact.get(index).id()));
         Comparator<ContactData> compareById = (o1, o2) -> {
             return Integer.compare(Integer.parseInt(o1.id()), Integer.parseInt(o2.id()));
         };
-        newContact.sort(compareById);
+        newContacts.sort(compareById);
         expectedList.sort(compareById);
-        Assertions.assertEquals(newContact, expectedList);
+        Assertions.assertEquals(newContacts,expectedList);
 
     }
 

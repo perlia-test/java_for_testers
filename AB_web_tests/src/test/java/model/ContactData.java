@@ -1,5 +1,6 @@
 package model;
 
+
 public record ContactData
         (String id,
          String first_name,
@@ -18,14 +19,14 @@ public record ContactData
          String email_2,
          String email_3,
          String homepage,
-         String birthdayDay,
+         Integer birthdayDay,
          String birthdayMonth,
          String birthdayYear,
          Integer anniversaryDay,
          String anniversaryMonth,
          String anniversaryYear) {
     public ContactData() {
-        this("","","","","","","","","","","","","","","","","","-","-","",0,"-","");
+        this("","","","","","","","","","","","","","","","","",0,"-","",0,"-","");
     }
 
     public ContactData withId(String id) {
@@ -487,7 +488,7 @@ public record ContactData
                 this.anniversaryYear);
     }
 
-    public ContactData withBirthday(String birthdayDay, String birthdayMonth, String birthdayYear) {
+    public ContactData withBirthday(Integer birthdayDay, String birthdayMonth, String birthdayYear) {
         return new ContactData(
                 this.id,
                 this.first_name,

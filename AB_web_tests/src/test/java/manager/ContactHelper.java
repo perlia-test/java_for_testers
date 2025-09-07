@@ -59,10 +59,10 @@ public class ContactHelper extends HelperBase {
         type(By.name("email2"), fieldName.email_2());
         type(By.name("email3"), fieldName.email_3());
         type(By.name("homepage"), fieldName.homepage());
-        select(By.name("bday"), fieldName.birthdayDay());
+        select(By.name("bday"), String.valueOf(fieldName.birthdayDay()));
         select(By.name("bmonth"), fieldName.birthdayMonth());
         type(By.name("byear"), fieldName.birthdayYear());
-        select(By.name("aday"), "-");
+        select(By.name("aday"), String.valueOf(fieldName.anniversaryDay()));
         select(By.name("amonth"), fieldName.anniversaryMonth());
         type(By.name("ayear"), fieldName.anniversaryYear());
         //select(By.name("group"), "[none]");
