@@ -11,10 +11,6 @@ public class GroupDeleteTests extends TestBase {
 
     @Test
     public void CanDeleteGroup() {
-        /*if (app.groups().getCount() == 0) {
-            app.groups().createGroup(new GroupData("", "group name 1", "group header 1", "group footer 1"));
-        }
-        var oldGroups = app.groups().getList();*/
         if (app.hbm().getGroupCount() == 0) {
             app.hbm().createGroup(new GroupData("", "group name 1", "group header 1", "group footer 1"));
         }
@@ -30,9 +26,6 @@ public class GroupDeleteTests extends TestBase {
 
     @Test
     void CanDeleteAllGroupsAtOnce() {
-        /*if (app.groups().getCount() == 0) {
-            app.groups().createGroup(new GroupData("", "group name 1", "group header 1", "group footer 1"));
-        }*/
         if (app.hbm().getGroupCount() == 0) {
             app.hbm().createGroup(new GroupData("", "group name 1", "group header 1", "group footer 1"));
         }

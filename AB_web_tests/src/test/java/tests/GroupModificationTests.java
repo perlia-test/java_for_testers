@@ -13,9 +13,6 @@ public class GroupModificationTests extends TestBase {
 
     @Test
     void canModifyGroup() {
-        /*if (app.groups().getCount() == 0) {
-            app.groups().createGroup(new GroupData("", "group name 1", "group header 1", "group footer 1"));
-        }*/
         if (app.hbm().getGroupCount() == 0) {
             app.hbm().createGroup(new GroupData("",CommonFunctions.randomString(5),CommonFunctions.randomString(7), CommonFunctions.randomString(9)));
         }

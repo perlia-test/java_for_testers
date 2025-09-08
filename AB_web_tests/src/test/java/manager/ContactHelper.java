@@ -15,14 +15,12 @@ public class ContactHelper extends HelperBase {
 
     public ContactHelper(ApplicationManager manager) {
         super(manager);
-
-
     }
 
-    public boolean isContactPresent() {
+    /*public boolean isContactPresent() {
         returnToHomePage();
         return manager.IsElementPresent(By.name("selected[]"));
-    }
+    }*/
 
     public void createContact(ContactData fieldName) {
         initContactCreation();
@@ -188,11 +186,6 @@ public class ContactHelper extends HelperBase {
             checkbox.click();
         }
     }
-
-    /*public String getPhones(ContactData contact) {
-        return manager.driver.findElement
-                (By.xpath(String.format("//input[@id = '%s']/../../td[6]", contact.id()))).getText();
-    }*/
 
     public Map<String, String> getPhones() {
         var result = new HashMap<String, String>();
