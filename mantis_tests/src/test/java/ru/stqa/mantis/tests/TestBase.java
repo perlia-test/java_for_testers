@@ -1,8 +1,7 @@
-package tests;
+package ru.stqa.mantis.tests;
 
-import manager.ApplicationManager;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import ru.stqa.mantis.manager.ApplicationManager;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -12,8 +11,7 @@ public class TestBase {
 
     protected static ApplicationManager app;
 
-
-    @BeforeEach
+@BeforeEach
     public void setUp() throws IOException {
         if (app == null) {
             var properties = new Properties();
@@ -24,11 +22,4 @@ public class TestBase {
         }
 
     }
-    @AfterEach
-    void checkDatabaseConsistancy(){
-        app.jdbc().checkConsistancy();
-    }
-
-
 }
-
