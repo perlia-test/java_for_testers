@@ -11,7 +11,8 @@ public class JamesCliHelper extends HelperBase{
     }
     public void addUser(String email, String password) throws InterruptedException {
         ExternalProcess.builder()
-                .command("java", "-cp", "\"james-server-jpa-app.lib/*\"", "org.apache.james.cli.ServerCmd", "AddUser", email, password)
+                .command("java", "-cp", "\"james-server-jpa-app.lib/*\"", "org.apache.james.cli.ServerCmd", "AddUser",
+                        email, password)
                 .directory(manager.property("james.workingDir"))
                 .copyOutputTo(System.err)
                 .start()
