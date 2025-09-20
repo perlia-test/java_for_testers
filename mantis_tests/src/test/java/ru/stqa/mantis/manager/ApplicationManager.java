@@ -4,6 +4,7 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import ru.stqa.mantis.model.IssueData;
 
 import java.util.Properties;
 
@@ -16,6 +17,8 @@ public class ApplicationManager {
     private JamesCliHelper jamesCliHelper;
     private MailHelper mailHelper;
     private BrowserHelper browserHelper;
+    private JamesApiHelper jamesApiHelper;
+    private RestApiHelper restApiHelper;
 
     public void init(String browser, Properties properties) {
         this.string = browser;
@@ -60,6 +63,13 @@ public class ApplicationManager {
         return jamesCliHelper;
     }
 
+    public JamesApiHelper jamesApi() {
+        if (jamesApiHelper == null) {
+            jamesApiHelper = new JamesApiHelper(this);
+        }
+        return jamesApiHelper;
+    }
+
     public MailHelper mail() {
         if (mailHelper == null) {
             mailHelper = new MailHelper(this);
@@ -73,7 +83,14 @@ public class ApplicationManager {
         }
         return browserHelper;
     }
-    
+
+
+    public RestApiHelper rest() {
+        if (restApiHelper == null) {
+            restApiHelper = new RestApiHelper(this);
+        }
+        return restApiHelper;
+    }
     public String property (String name) {
         return  properties.getProperty(name);
 

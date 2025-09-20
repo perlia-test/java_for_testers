@@ -38,4 +38,30 @@ public class UserRegistrationTests extends TestBase {
         //проверяем вход (HttpSessionHelper)
         app.http().login(username, password);
     }
+
+    @ParameterizedTest
+    @MethodSource("rndUser")
+    void canRegisterUserApi (String username) throws InterruptedException {
+
+        //создаем адрес емэйл на почтовом сервере
+        var email = String.format("%s@localhost", username);
+        var password = "password";
+        app.jamesApi().addUser(email, password);
+
+        //заполняем форму создания в браузере и отправляем письмо
+        app.browser().newUserSignUp(username, email);
+
+        //получаем письмо
+        var messages = app.mail().reseive(email, password, Duration.ofSeconds(10));
+
+        //извлекаем ссылку
+        var text = messages.get(0).content();
+        var url = app.mail().extractUrl(text);
+
+        //проходим по ссылке в браузере и завершаем регистрацию
+        app.browser().userLogin(url, password);
+
+        //проверяем вход (HttpSessionHelper)
+        app.http().login(username, password);
+    }
 }
