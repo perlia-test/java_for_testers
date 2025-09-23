@@ -10,6 +10,16 @@ repositories {
     mavenCentral()
 }
 
+def allureVersion = '2.29.0'
+def aspectJVersion = '1.9.22'
+
+configurations {
+    agent {
+        canBeResolved = true
+        canBeConsumed = true
+    }
+}
+
 dependencies {
     testImplementation platform('org.junit:junit-bom:5.10.0')
     testImplementation 'org.junit.jupiter:junit-jupiter'
@@ -29,11 +39,19 @@ dependencies {
 
     implementation 'biz.futureware.mantis:mantis-axis-soap-client:1.2.19'
 
+    agent "org.aspectj:aspectjweaver:$aspectJVersion"
+
+    testImplementation platform("io.qameta.allure:allure-bom:$allureVersion")
+    testImplementation "io.qameta.allure:allure-junit5"
+
 }
 
 test {
     useJUnitPlatform()
+    jvmArgs = [ "-javaagent:${configurations.agent.singleFile}" ]
+
 }
+
 swaggerSources {
     mantis {
         inputFile = file('swagger.json')
@@ -41,4 +59,5 @@ swaggerSources {
             language = 'java'
         }
     }
+
 }
