@@ -124,7 +124,9 @@ public void CanCreateContacts(ContactData contact) {
         var contact = new ContactData()
                 .withFirstName(CommonFunctions.randomString(3))
                 .withLastName(CommonFunctions.randomString(3))
-                .withPhoto(CommonFunctions.randomFile("src/test/resources/images"));
+                .withPhoto(CommonFunctions.randomFile("src/test/resources/images"))
+                .withBirthday(CommonFunctions.randomDay(), CommonFunctions.randomMonth(), CommonFunctions.randomYear())
+                .withAnniversary(CommonFunctions.randomDay(), CommonFunctions.randomMonth(), CommonFunctions.randomYear());
         if (app.hbm().getGroupCount() == 0) {
             app.hbm().createGroup(new GroupData("", "group name 1", "group header 1", "group footer 1"));
         }
